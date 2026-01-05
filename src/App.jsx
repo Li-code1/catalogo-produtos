@@ -61,7 +61,7 @@ function App() {
           value={descricao} onChange={(e) => setDescricao(e.target.value)} required 
         />
         <input 
-          type="text" placeholder="Caminho da Imagem (ex: /assets/produto.jpg)" 
+          type="text" placeholder="Caminho da Imagem (ex: /assets/produto.png)" 
           value={imagem} onChange={(e) => setImagem(e.target.value)} required 
         />
         <button type="submit">Adicionar Produto</button>
