@@ -6,34 +6,42 @@ function App() {
   const [produtos, setProdutos] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  // Estados do Formulário
+  // Estados do formulário
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState('');
   const [descricao, setDescricao] = useState('');
   const [imagem, setImagem] = useState('');
 
-  // Simulação de API
+  // Carregar produtos do localStorage ou usar mock inicial
   useEffect(() => {
-    setTimeout(() => {
+    const dadosSalvos = localStorage.getItem("produtos");
+    if (dadosSalvos) {
+      setProdutos(JSON.parse(dadosSalvos));
+    } else {
       const dadosMockados = [
         { id: 1, nome: "Teclado Mecânico", preco: "250.00", descricao: "RGB e Switch Blue", imagem: "/assets/teclado.png" },
         { id: 2, nome: "Mouse Gamer", preco: "120.00", descricao: "12000 DPI", imagem: "/assets/mouse.png" }
       ];
       setProdutos(dadosMockados);
-      setCarregando(false);
-    }, 2000);
+      localStorage.setItem("produtos", JSON.stringify(dadosMockados));
+    }
+    setCarregando(false);
   }, []);
 
   const adicionarProduto = (e) => {
     e.preventDefault();
+
     const novoProduto = {
       id: Date.now(),
       nome,
       preco,
       descricao,
-      imagem // aqui você pode digitar o caminho da imagem (ex: /assets/nome.png)
+      imagem // ex: "/assets/nome.png"
     };
-    setProdutos([...produtos, novoProduto]);
+
+    const listaAtualizada = [...produtos, novoProduto];
+    setProdutos(listaAtualizada);
+    localStorage.setItem("produtos", JSON.stringify(listaAtualizada));
 
     // Limpar campos
     setNome('');
