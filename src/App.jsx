@@ -10,13 +10,14 @@ function App() {
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [imagem, setImagem] = useState('');
 
   // Simulação de API
   useEffect(() => {
     setTimeout(() => {
       const dadosMockados = [
-        { id: 1, nome: "Teclado Mecânico", preco: "250.00", descricao: "RGB e Switch Blue" },
-        { id: 2, nome: "Mouse Gamer", preco: "120.00", descricao: "12000 DPI" }
+        { id: 1, nome: "Teclado Mecânico", preco: "250.00", descricao: "RGB e Switch Blue", imagem: "/assets/teclado.png" },
+        { id: 2, nome: "Mouse Gamer", preco: "120.00", descricao: "12000 DPI", imagem: "/assets/mouse.png" }
       ];
       setProdutos(dadosMockados);
       setCarregando(false);
@@ -29,14 +30,16 @@ function App() {
       id: Date.now(),
       nome,
       preco,
-      descricao
+      descricao,
+      imagem // aqui você pode digitar o caminho da imagem (ex: /assets/nome.png)
     };
     setProdutos([...produtos, novoProduto]);
-    
+
     // Limpar campos
     setNome('');
     setPreco('');
     setDescricao('');
+    setImagem('');
   };
 
   return (
@@ -57,6 +60,10 @@ function App() {
           placeholder="Descrição" 
           value={descricao} onChange={(e) => setDescricao(e.target.value)} required 
         />
+        <input 
+          type="text" placeholder="Caminho da Imagem (ex: /assets/produto.jpg)" 
+          value={imagem} onChange={(e) => setImagem(e.target.value)} required 
+        />
         <button type="submit">Adicionar Produto</button>
       </form>
 
@@ -73,6 +80,7 @@ function App() {
               nome={produto.nome}
               preco={produto.preco}
               descricao={produto.descricao}
+              imagem={produto.imagem}
             />
           ))}
         </div>
